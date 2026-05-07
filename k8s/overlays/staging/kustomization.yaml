@@ -1,0 +1,41 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: ai-task-platform-staging
+
+resources:
+  - ../../base
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 1
+    target:
+      kind: Deployment
+      name: backend
+  - patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 1
+    target:
+      kind: Deployment
+      name: worker
+  - patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 1
+    target:
+      kind: Deployment
+      name: frontend
+
+commonLabels:
+  environment: staging
+
+images:
+  - name: jinitpatel/ai-task-backend
+    newTag: staging
+  - name: jinitpatel/ai-task-worker
+    newTag: staging
+  - name: jinitpatel/ai-task-frontend
+    newTag: staging
