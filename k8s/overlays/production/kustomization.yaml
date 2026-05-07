@@ -4,38 +4,41 @@ kind: Kustomization
 namespace: ai-task-platform
 
 resources:
-  - ../../base
+- ../../base
 
 patches:
-  - patch: |-
-      - op: replace
-        path: /spec/replicas
-        value: 3
-    target:
-      kind: Deployment
-      name: backend
-  - patch: |-
-      - op: replace
-        path: /spec/replicas
-        value: 4
-    target:
-      kind: Deployment
-      name: worker
-  - patch: |-
-      - op: replace
-        path: /spec/replicas
-        value: 2
-    target:
-      kind: Deployment
-      name: frontend
+- patch: |-
+    - op: replace
+      path: /spec/replicas
+      value: 3
+  target:
+    kind: Deployment
+    name: backend
+- patch: |-
+    - op: replace
+      path: /spec/replicas
+      value: 4
+  target:
+    kind: Deployment
+    name: worker
+- patch: |-
+    - op: replace
+      path: /spec/replicas
+      value: 2
+  target:
+    kind: Deployment
+    name: frontend
 
 commonLabels:
   environment: production
 
 images:
-  - name: jinitpatel/ai-task-backend
-    newTag: latest
-  - name: jinitpatel/ai-task-worker
-    newTag: latest
-  - name: jinitpatel/ai-task-frontend
-    newTag: latest
+- name: jinitpatel/ai-task-backend
+  newName: jinitpatel/ai-task-backend
+  newTag: 6b9d8a1
+- name: jinitpatel/ai-task-frontend
+  newName: jinitpatel/ai-task-frontend
+  newTag: 6b9d8a1
+- name: jinitpatel/ai-task-worker
+  newName: jinitpatel/ai-task-worker
+  newTag: 6b9d8a1
